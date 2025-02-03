@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -33,3 +34,6 @@ async def get_balance(wallet_id: str, db: Session = Depends(get_db)):
     if not wallet:
         raise HTTPException(status_code=404, detail="Wallet not found")
     return {"balance": wallet.balance}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True)
